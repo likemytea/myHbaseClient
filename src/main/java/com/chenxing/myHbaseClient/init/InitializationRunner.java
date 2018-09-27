@@ -10,7 +10,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.chenxing.myHbaseClient.dao.Test1Dao;
+import com.chenxing.myHbaseClient.dao.HbaseClientTemplate;
 
 /**
  * Description: 系统初始化
@@ -51,7 +51,7 @@ public class InitializationRunner implements ApplicationRunner {
 		Configuration config = HBaseConfiguration.create();
 		config.addResource(new Path(hbasedir, "hbase-site.xml"));
 		config.addResource(new Path(hdpdir, "core-site.xml"));
-		Test1Dao.conf = config;
+		HbaseClientTemplate.conf = config;
 		// new HbaseDataSource(HbaseDataSource.conf, table0);
 	}
 }

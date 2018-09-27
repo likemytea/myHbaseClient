@@ -5,19 +5,20 @@ import java.io.IOException;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.BufferedMutator;
 import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.chenxing.common.distributedKey.PrimarykeyGenerated;
-import com.chenxing.myHbaseClient.util.ThreadPool;
 
 @Component
-public class Test1Dao {
+public class Test2Dao {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	HbaseClientTemplate template;
 
 	/**
 	 * 添加一行数据 keep long time connect
@@ -25,13 +26,11 @@ public class Test1Dao {
 	 * @throws IOException
 	 * 
 	 */
-	public void addRecordByBufferMutator(String str, String tableName) throws IOException {
-		Connection connection = null;
+	public void insert0(String str, String tableName) throws IOException {
 		// Table table = null;
 		BufferedMutator bufferMutator = null;
-
+		Connection connection = template.getConnection();
 		try {
-			connection = ConnectionFactory.createConnection(HbaseClientTemplate.conf, ThreadPool.geteService());
 			log.info("创建hbase connection 成功");
 			// table = connection.getTable(TableName.valueOf(tableName), null);
 			bufferMutator = connection.getBufferedMutator(TableName.valueOf(tableName));
@@ -50,9 +49,7 @@ public class Test1Dao {
 			e.printStackTrace();
 		} finally {
 			bufferMutator.close();
-			connection.close();
-			log.info("关闭hbase conn success");
+			log.info("!!!关闭 bufferMutator success");
 		}
 	}
-
 }

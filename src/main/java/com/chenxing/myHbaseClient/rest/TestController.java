@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chenxing.myHbaseClient.dao.Test1Dao;
+import com.chenxing.myHbaseClient.dao.Test2Dao;
 
 /**
  * @author liuxing
@@ -21,7 +21,7 @@ import com.chenxing.myHbaseClient.dao.Test1Dao;
 public class TestController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	Test1Dao dao;
+	Test2Dao dao;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String sayHi(@RequestParam String str, @RequestParam String tablename) {
@@ -29,7 +29,7 @@ public class TestController {
 		long start = System.currentTimeMillis();
 		String res = null;
 		try {
-			dao.addRecordByBufferMutator(str, tablename);
+			dao.insert0(str, tablename);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
