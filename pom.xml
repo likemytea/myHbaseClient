@@ -6,7 +6,7 @@
 	<groupId>com.chenxing</groupId>
 	<artifactId>myHbaseClient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>myHbaseClient</name>
 	<description>Demo project for Spring Boot</description>
