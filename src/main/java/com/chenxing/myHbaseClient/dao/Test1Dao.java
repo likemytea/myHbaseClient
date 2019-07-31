@@ -20,7 +20,7 @@ public class Test1Dao {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 添加一行数据 keep long time connect
+	 * 不推荐的用法
 	 * 
 	 * @throws IOException
 	 * 
