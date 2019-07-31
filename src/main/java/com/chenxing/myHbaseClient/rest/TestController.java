@@ -28,6 +28,7 @@ public class TestController {
 	Test2Dao dao;
 
 	// http://172.16.14.241:8080/test/select?tablename=t_order&carr=f_goods,goodsName,121212&startrow=18092712040300001&endrow=18092712071400004&rowfilter=1,180927
+	// http://172.16.14.241:8080/test/select?tablename=t_order&startrow=190731131&endrow=z190731185528
 	@RequestMapping(value = "/select", method = RequestMethod.GET)
 	public String select(@RequestParam String tablename, @RequestParam(required = false) String carr,
 			@RequestParam(required = false) String startrow, @RequestParam(required = false) String endrow,
@@ -58,12 +59,13 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public String insert0(@RequestParam String str, @RequestParam String tablename) {
+	public String insert0(@RequestParam String str, @RequestParam String tablename,
+			@RequestParam(required = false) String keySalt) {
 		log.info(str + tablename);
 		long start = System.currentTimeMillis();
 		String res = null;
 		try {
-			dao.insert0(str, tablename);
+			dao.insert0(str, tablename, keySalt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

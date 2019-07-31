@@ -118,14 +118,19 @@ public class Test2Dao {
 	 * @throws IOException
 	 * 
 	 */
-	public void insert0(String str, String tableName) throws IOException {
+	public void insert0(String str, String tableName, String keySalt) throws IOException {
 		// Table table = null;
 		BufferedMutator bufferMutator = null;
 		Connection connection = template.getConnection();
 		try {
 			// table = connection.getTable(TableName.valueOf(tableName), null);
 			bufferMutator = connection.getBufferedMutator(TableName.valueOf(tableName));
-			String key = PrimarykeyGenerated.generateId(false);
+			String key = null;
+			if (keySalt != null) {
+				key = keySalt + PrimarykeyGenerated.generateId(false);
+			} else {
+				key = PrimarykeyGenerated.generateId(false);
+			}
 			Put put = new Put(Bytes.toBytes(key));
 			put.addColumn(Bytes.toBytes("f_goods"), Bytes.toBytes("goodsName"), Bytes.toBytes(str));
 			bufferMutator.mutate(put);
