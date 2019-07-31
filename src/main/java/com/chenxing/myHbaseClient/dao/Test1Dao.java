@@ -21,7 +21,6 @@ public class Test1Dao {
 
 	/**
 	 * 不推荐的用法
-	 * 
 	 * @throws IOException
 	 * 
 	 */
