@@ -27,6 +27,7 @@ public class TestController {
 	@Autowired
 	Test2Dao dao;
 
+	// http://172.16.14.241:8080/test/select?tablename=t_order&carr=f_goods,goodsName,121212&startrow=18092712040300001&endrow=18092712071400004&rowfilter=1,180927
 	@RequestMapping(value = "/select", method = RequestMethod.GET)
 	public String select(@RequestParam String tablename, @RequestParam(required = false) String carr,
 			@RequestParam(required = false) String startrow, @RequestParam(required = false) String endrow,
