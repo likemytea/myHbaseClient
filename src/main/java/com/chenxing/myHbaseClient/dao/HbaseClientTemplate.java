@@ -27,7 +27,9 @@ public class HbaseClientTemplate {
 				connection = ConnectionFactory.createConnection(conf, ThreadPool.geteService());
 				return connection;
 			} else if (connection == null || connection.isClosed()) {
+				log.info("hbase client 创建到hbaseserver的连接...");
 				connection = ConnectionFactory.createConnection(conf, ThreadPool.geteService());
+				log.info("hbase client 创建到连接成功。");
 				return connection;
 			}
 		} catch (IOException e) {

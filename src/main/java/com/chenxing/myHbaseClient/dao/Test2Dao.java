@@ -31,15 +31,11 @@ public class Test2Dao {
 		BufferedMutator bufferMutator = null;
 		Connection connection = template.getConnection();
 		try {
-			log.info("创建hbase connection 成功");
 			// table = connection.getTable(TableName.valueOf(tableName), null);
 			bufferMutator = connection.getBufferedMutator(TableName.valueOf(tableName));
-			log.info("获取 hbase connection bufferMutator 成功");
 			String key = PrimarykeyGenerated.generateId(false);
 			Put put = new Put(Bytes.toBytes(key));
 			put.addColumn(Bytes.toBytes("f_goods"), Bytes.toBytes("goodsName"), Bytes.toBytes(str));
-			log.info("实例化 bufferMutator 成功");
-			log.info("hbase 初始化 全部完成！");
 			bufferMutator.mutate(put);
 			// 调用flush()方法会把put中的数据立刻刷到hbase的memstore里边，不调用的话，会保存到程序服务的缓存中
 			bufferMutator.flush();
