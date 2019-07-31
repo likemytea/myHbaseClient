@@ -10,7 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.chenxing.myHbaseClient.util.ThreadPool;
-
+/**
+ * 创建连接是一个重量级操作。连接实现是线程安全的，因此客户端可以创建一个连接，并与不同的线程共享它。
+ * Table和Admin实例是轻量级的，并且不是线程安全的。通常，每个客户端应用程序都实例化一个连接，
+ * 每个线程都将获得自己的Table实例。不推荐使用Table和Admin的缓存或池。
+ * 
+ * */
 @Component
 public class HbaseClientTemplate {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
