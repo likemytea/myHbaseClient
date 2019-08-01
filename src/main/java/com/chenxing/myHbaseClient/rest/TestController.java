@@ -47,15 +47,16 @@ public class TestController {
 				filterMap.put(Integer.parseInt(x[0]), x[1]);
 			}
 		}
+		String res = null;
 		try {
-			dao.select0(tablename, a, startrow, endrow, filterMap);
+			res = dao.select0(tablename, a, startrow, endrow, filterMap);
 		} catch (IOException e) {
 			log.error("严重异常：" + e.getMessage());
 			e.printStackTrace();
 		}
 		long end = System.currentTimeMillis();
 		log.info("消耗时长 " + (start - end) + "毫秒");
-		return null;
+		return res;
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
