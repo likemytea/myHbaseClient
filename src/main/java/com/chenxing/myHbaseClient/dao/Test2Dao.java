@@ -53,9 +53,11 @@ public class Test2Dao {
 		while ((result = rScan.next()) != null) {
 			byte[] rowkey = result.getRow();
 			log.info(new String(rowkey));
-			log.info(new String(result.getValue("f_goods".getBytes(), "goodsName".getBytes())));
 			sb.append(new String(rowkey));
-			sb.append(new String(result.getValue("f_goods".getBytes(), "goodsName".getBytes())));
+			if (result.getValue("f_goods".getBytes(), "goodsName".getBytes()) != null) {
+				log.info(new String(result.getValue("f_goods".getBytes(), "goodsName".getBytes())));
+				sb.append(new String(result.getValue("f_goods".getBytes(), "goodsName".getBytes())));
+			}
 		}
 		log.info("输出完毕。");
 		rScan.close();
