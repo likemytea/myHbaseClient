@@ -21,7 +21,7 @@ import com.chenxing.myHbaseClient.dao.Test2Dao;
  * @author liuxing
  */
 @RestController
-@RequestMapping(value = "/test", method = RequestMethod.GET)
+@RequestMapping(value = "/test", method = RequestMethod.POST)
 public class TestController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
@@ -29,7 +29,7 @@ public class TestController {
 
 	// http://172.16.14.241:8080/test/select?tablename=t_order&carr=f_goods,goodsName,121212&startrow=18092712040300001&endrow=18092712071400004&rowfilter=1,180927
 	// http://172.16.14.241:8080/test/select?tablename=t_order&startrow=190731131&endrow=z190731185528
-	@RequestMapping(value = "/select", method = RequestMethod.GET)
+	@RequestMapping(value = "/select", method = RequestMethod.POST)
 	public String select(@RequestParam String tablename, @RequestParam(required = false) String carr,
 			@RequestParam(required = false) String startrow, @RequestParam(required = false) String endrow,
 			@RequestParam(required = false) String rowfilter) {
@@ -58,7 +58,7 @@ public class TestController {
 		return null;
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String insert0(@RequestParam String str, @RequestParam String tablename,
 			@RequestParam(required = false) String keySalt) {
 		log.info(str + tablename);
