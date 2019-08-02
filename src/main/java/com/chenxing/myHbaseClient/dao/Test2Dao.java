@@ -40,9 +40,8 @@ public class Test2Dao {
 	 * @param endrow
 	 * @param Map<Integer, String> 行键过滤器
 	 */
-	public String select0(String tableName, String[] carr, String startrow, String endrow,
+	public void select0(String tableName, String[] carr, String startrow, String endrow,
 			Map<Integer, String> filterMap) throws IOException {
-		StringBuffer sb = new StringBuffer();
 		Connection connection = template.getConnection();
 		Table table = connection.getTable(TableName.valueOf(tableName), null);
 		Scan scan = new Scan();
@@ -53,15 +52,12 @@ public class Test2Dao {
 		while ((result = rScan.next()) != null) {
 			byte[] rowkey = result.getRow();
 			log.info(new String(rowkey));
-			sb.append(new String(rowkey));
 			if (result.getValue("f_goods".getBytes(), "goodsName".getBytes()) != null) {
 				log.info(new String(result.getValue("f_goods".getBytes(), "goodsName".getBytes())));
-				sb.append(new String(result.getValue("f_goods".getBytes(), "goodsName".getBytes())));
 			}
 		}
 		log.info("输出完毕。");
 		rScan.close();
-		return sb.toString();
 	}
 
 	private Scan editFilters(Scan scan, String startrow, String endrow, Map<Integer, String> filterMap, String[] carr) {

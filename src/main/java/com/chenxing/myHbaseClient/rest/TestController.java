@@ -30,7 +30,7 @@ public class TestController {
 	// http://172.16.14.241:8080/test/select?tablename=t_order&carr=f_goods,goodsName,121212&startrow=18092712040300001&endrow=18092712071400004&rowfilter=1,180927
 	// http://172.16.14.241:8080/test/select?tablename=t_order&startrow=190731131&endrow=z190731185528
 	@RequestMapping(value = "/select", method = RequestMethod.POST)
-	public String select(@RequestParam String tablename, @RequestParam(required = false) String carr,
+	public void select(@RequestParam String tablename, @RequestParam(required = false) String carr,
 			@RequestParam(required = false) String startrow, @RequestParam(required = false) String endrow,
 			@RequestParam(required = false) String rowfilter) {
 		long start = System.currentTimeMillis();
@@ -47,16 +47,14 @@ public class TestController {
 				filterMap.put(Integer.parseInt(x[0]), x[1]);
 			}
 		}
-		String res = null;
 		try {
-			res = dao.select0(tablename, a, startrow, endrow, filterMap);
+			dao.select0(tablename, a, startrow, endrow, filterMap);
 		} catch (IOException e) {
 			log.error("严重异常：" + e.getMessage());
 			e.printStackTrace();
 		}
 		long end = System.currentTimeMillis();
 		log.info("消耗时长 " + (start - end) + "毫秒");
-		return res;
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
