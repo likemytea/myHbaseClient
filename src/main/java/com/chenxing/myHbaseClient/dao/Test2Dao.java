@@ -125,7 +125,7 @@ public class Test2Dao {
 	 * @throws IOException
 	 * 
 	 */
-	public void insert0(String str, String tableName, String keySalt) throws IOException {
+	public void insert0(String str, String tableName, String rowkey, String cf, String col) throws IOException {
 		// Table table = null;
 		BufferedMutator bufferMutator = null;
 		Connection connection = template.getConnection();
@@ -133,13 +133,13 @@ public class Test2Dao {
 			// table = connection.getTable(TableName.valueOf(tableName), null);
 			bufferMutator = connection.getBufferedMutator(TableName.valueOf(tableName));
 			String key = null;
-			if (keySalt != null) {
-				key = keySalt + PrimarykeyGenerated.generateId(false);
+			if (rowkey != null) {
+				key = rowkey;
 			} else {
 				key = PrimarykeyGenerated.generateId(false);
 			}
 			Put put = new Put(Bytes.toBytes(key));
-			put.addColumn(Bytes.toBytes("f_goods"), Bytes.toBytes("goodsName"), Bytes.toBytes(str));
+			put.addColumn(Bytes.toBytes(cf), Bytes.toBytes(col), Bytes.toBytes(str));
 			bufferMutator.mutate(put);
 			// 调用flush()方法会把put中的数据立刻刷到hbase的memstore里边，不调用的话，会保存到程序服务的缓存中
 			bufferMutator.flush();

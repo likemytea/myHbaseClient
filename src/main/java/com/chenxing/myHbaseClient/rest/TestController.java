@@ -61,12 +61,13 @@ public class TestController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String insert0(@RequestParam String str, @RequestParam String tablename,
-			@RequestParam(required = false) String keySalt) {
+			@RequestParam(required = false) String rowkey, @RequestParam(required = false) String cf,
+			@RequestParam(required = false) String col) {
 		log.info(str + tablename);
 		long start = System.currentTimeMillis();
 		String res = null;
 		try {
-			dao.insert0(str, tablename, keySalt);
+			dao.insert0(str, tablename, rowkey, cf, col);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
